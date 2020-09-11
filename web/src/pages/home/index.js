@@ -54,6 +54,7 @@ export default function Home() {
       try {
         const response = await api.post('/sales', { value, method })
         setSales([response.data, ...sales])
+        setValue('')
         toast.success('Venda Cadastrada')
       } catch (error) {
         toast.error(error)
@@ -78,6 +79,7 @@ export default function Home() {
             <input
               type="text"
               placeholder="Digite o valor, Ex: 5.00"
+              value={value}
               name="valor_venda"
               required
               onChange={e => setValue(e.target.value)}
@@ -117,9 +119,6 @@ export default function Home() {
           <Options>
             <button id="caixa" onClick={handleSetVisible}>
               Fechar caixa
-            </button>
-            <button id="vendas" disabled={true}>
-              Vendas
             </button>
           </Options>
         </Left>

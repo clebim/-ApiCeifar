@@ -91,8 +91,6 @@ export const Right = styled.div`
       grid-template-columns: 1fr;
     }
   }
-  height: 75vh;
-  overflow-y: scroll;
 `
 
 export const Item = styled.div`
@@ -125,17 +123,14 @@ export const ItemContent = styled.div`
   }
 `
 export const Options = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
   padding: 0 30px 20px 30px;
-
   button {
     height: 40px;
+    width: 100%;
     border-radius: 4px;
     border: 0;
     background: #513612;
     color: #fff;
-    margin-top: 10px;
     font-weight: bold;
     font-size: 20px;
     letter-spacing: 1px;
@@ -146,24 +141,12 @@ export const Options = styled.div`
   }
 
   #caixa {
-    margin-right: 10px;
     font-size: 16px;
     letter-spacing: 0;
     background: #0d730d;
     transition: background 0.2s;
     :hover {
       background: ${darken(0.05, '#0d730d')};
-    }
-  }
-
-  #vendas {
-    background: #e69e19;
-    margin-left: 10px;
-    font-size: 16px;
-    letter-spacing: 0;
-    transition: background 0.2s;
-    :hover {
-      background: ${darken(0.05, '#e69e19')};
     }
   }
 `

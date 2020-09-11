@@ -21,7 +21,7 @@ export default createGlobalStyle`
   
   body{
     -webkit-font-smoothing: antialiased !important;
-    background: url(${Background}) no-repeat;
+    background: url(${Background}) no-repeat fixed center center;
     background-size: cover;
   }
   

@@ -6,6 +6,7 @@ import authMiddleware from './middlewares/auth';
 import SalesController from './controllers/SalesController';
 import PaymentsController from './controllers/PaymentsController';
 import SalesOfTheDayController from './controllers/SalesOfTheDayController';
+import ReportsController from './controllers/ReportsController';
 
 const routes = Router();
 
@@ -25,5 +26,7 @@ routes.delete('/payments/:id', PaymentsController.delete);
 routes.get('/pre_sales_day', SalesOfTheDayController.store);
 routes.post('/sales_day', SalesOfTheDayController.create);
 routes.get('/sales_day', SalesOfTheDayController.index);
+
+routes.post('/reports', ReportsController.index);
 
 export default routes;

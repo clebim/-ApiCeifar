@@ -1,14 +1,13 @@
 import * as Knex from 'knex';
-
 const bcrypt = require('bcryptjs');
 
-export async function seed(knex: Knex): Promise<any> {
+export async function seed(knex: Knex): Promise<void> {
   await knex('users').insert([
     {
       name: 'Panificadora Ceifar',
-      email: 'admin@ceifar.com',
-      password_hash: bcrypt.hashSync('ceifar000', 8),
-      admin: true,
+      email: 'ceifar@ceifar.com',
+      password_hash: bcrypt.hashSync('2675ceifar', 8),
+      admin: false,
       created_at: new Date(),
       updated_at: new Date(),
     },

@@ -91,8 +91,6 @@ export const Right = styled.div`
       grid-template-columns: 1fr;
     }
   }
-  height: 75vh;
-  overflow-y: scroll;
 `
 
 export const Item = styled.div`

@@ -2,6 +2,22 @@ import styled from 'styled-components'
 import { lighten } from 'polished'
 
 export const Container = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 30px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+`
+export const ContentForm = styled.div`
+  width: 100%;
+  max-width: 360px;
+  background: #fff;
+  border-radius: 4px;
+`
+
+export const ContainerForm = styled.div`
   height: 100%;
   display: flex;
   font-family: 'Roboto';
@@ -9,24 +25,10 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
 `
-
-export const Content = styled.div`
-  width: 100%;
-  max-width: 360px;
-  background: #fff;
-  border-radius: 4px;
-`
-export const Logo = styled.h1`
-  margin: 50px 0;
-  color: #513612;
-  font-size: 32px;
-  display: flex;
-  justify-content: center;
-`
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
-  padding: 0 30px;
+  padding: 30px;
   border: 0;
 `
 export const Input = styled.input`
@@ -52,7 +54,7 @@ export const Button = styled.button`
   color: #fff;
   background: #513612;
   height: 45px;
-  margin-bottom: 60px;
+  margin-bottom: 20px;
   font-weight: bold;
   font-size: 18px;
   transition: background 0.2s;
