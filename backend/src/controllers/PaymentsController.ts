@@ -16,7 +16,7 @@ class PaymentsController {
     const schema = Yup.object().shape({
       value: Yup.number().required(),
       description: Yup.string().required(),
-      pay_day: Yup.date().required(),
+      pay_day: Yup.string().max(10).required(),
     });
 
     if (!(await schema.isValid(req.body))) {

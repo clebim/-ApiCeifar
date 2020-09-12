@@ -30,6 +30,15 @@ class SalesOfTheDayController {
 
     const date = formatISO(new Date(), { representation: 'date' });
 
+    const saleExists = await knex('sales_of_the_day')
+      .where('date', date)
+      .select('*')
+      .first();
+
+    if (saleExists) {
+      return res.status(401).json({ error: 'Sale of the day already exists' });
+    }
+
     const sales = await knex('sales_of_the_day').insert({
       money: money,
       credit_card: credit_card,

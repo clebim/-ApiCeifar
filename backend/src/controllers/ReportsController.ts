@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import knex from '../database/connection';
 import * as Yup from 'yup';
+import { parseISO, format } from 'date-fns';
 
 interface SaleOfTheDay {
   id: number;
@@ -79,8 +80,8 @@ class ReportsController {
     profit = sales_amount - month_payments;
 
     const report: Report = {
-      initial_date: initial_date,
-      final_date: final_date,
+      initial_date: format(parseISO(initial_date), 'dd/MM/yyyy'),
+      final_date: format(parseISO(final_date), 'dd/MM/yyyy'),
       cashSales: cashSales,
       sales_credit_card: sales_credit_card,
       sales_debit_card: sales_debit_card,

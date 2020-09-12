@@ -7,6 +7,7 @@ import SalesController from './controllers/SalesController';
 import PaymentsController from './controllers/PaymentsController';
 import SalesOfTheDayController from './controllers/SalesOfTheDayController';
 import ReportsController from './controllers/ReportsController';
+import SearchDateSaleController from './controllers/SearchDateSaleController';
 
 const routes = Router();
 
@@ -28,5 +29,7 @@ routes.post('/sales_day', SalesOfTheDayController.create);
 routes.get('/sales_day', SalesOfTheDayController.index);
 
 routes.post('/reports', ReportsController.index);
+
+routes.post('/search_sales', SearchDateSaleController.getSalefromDate);
 
 export default routes;
