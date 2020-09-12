@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { FaTrash, FaSearch } from 'react-icons/fa'
+import { FaSearch } from 'react-icons/fa'
 import { toast } from 'react-toastify'
+import * as Yup from 'yup'
 
 import api from '../../services/api'
 import {
@@ -8,7 +9,6 @@ import {
   Content,
   Item,
   HeaderItem,
-  ButtonItem,
   ItemContent,
   Form,
   ButtonForm
@@ -17,6 +17,8 @@ import Header from '../../components/Header/index'
 
 function Sales() {
   const [sales, setSales] = useState([])
+  const [initial_date, setInitial_date] = useState('')
+  const [final_date, setFinal_date] = useState('')
 
   useEffect(() => {
     async function handleLoadingSales() {
@@ -31,16 +33,59 @@ function Sales() {
     handleLoadingSales()
   }, [])
 
+  async function handleSearchSales(event) {
+    event.preventDefault()
+    try {
+      const model = {
+        initial_date: initial_date,
+        final_date: final_date
+      }
+
+      const schema = Yup.object().shape({
+        initial_date: Yup.string().required().max(10),
+        final_date: Yup.string().required().max(10)
+      })
+
+      if (await schema.isValid(model)) {
+        const response = await api.post('/search_sales', {
+          initial_date,
+          final_date
+        })
+
+        setSales(response.data)
+
+        if (response.data.length === 0) {
+          toast.success('Não há dados durante este período')
+        } else {
+          toast.success('Pesquisa feita com sucesso')
+        }
+      }
+    } catch (error) {
+      console.log(error)
+      toast.error('Falha ao fazer pesquisa. Dados inválidos')
+    }
+  }
+
   return (
     <>
       <Header />
       <Container>
         <Form>
-          <form>
+          <form onSubmit={handleSearchSales}>
             <label>Data inicial:</label>
-            <input type="date" name="initial_date" required />
+            <input
+              type="date"
+              name="initial_date"
+              required
+              onChange={e => setInitial_date(e.target.value)}
+            />
             <label>Data final:</label>
-            <input type="date" name="final_date" required />
+            <input
+              type="date"
+              name="final_date"
+              required
+              onChange={e => setFinal_date(e.target.value)}
+            />
 
             <ButtonForm type="submit">
               <FaSearch size={16} color="#FFFFFF" />
@@ -56,12 +101,6 @@ function Sales() {
                 <Item deleted={sale.deleted}>
                   <HeaderItem>
                     <span>Venda:</span>
-                    <ButtonItem
-                      onClick={() => {}}
-                      disabled={sale.deleted !== 0}
-                    >
-                      <FaTrash size={16} color="#DE3B3B" />
-                    </ButtonItem>
                   </HeaderItem>
                   <ItemContent>
                     <span>Dinheiro {sale.money}</span>

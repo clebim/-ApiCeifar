@@ -1,4 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react'
+import { toast } from 'react-toastify'
+
 import api from '../services/api'
 
 const AuthContext = createContext({})
@@ -33,15 +35,20 @@ export const AuthProvider = ({ children }) => {
   }, [])
 
   async function signIn(email, password) {
-    const response = await api.post('/sessions', { email, password })
+    try {
+      const response = await api.post('/sessions', { email, password })
+      toast.success('Login realizado com sucesso')
+      const { user, token } = response.data
 
-    const { user, token } = response.data
+      api.defaults.headers.Authorization = `Bearer ${token}`
+      setUser(user)
 
-    api.defaults.headers.Authorization = `Bearer ${token}`
-    setUser(user)
-
-    localStorage.setItem('@AuthUser', JSON.stringify(user))
-    localStorage.setItem('@AuthToken', token)
+      localStorage.setItem('@AuthUser', JSON.stringify(user))
+      localStorage.setItem('@AuthToken', token)
+    } catch (error) {
+      console.log(error)
+      toast.error('Erro ao fazer login. E-mail ou senha inválidos')
+    }
   }
 
   async function signOut() {

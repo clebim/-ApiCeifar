@@ -33,10 +33,11 @@ function CloseBox({ visibleFull, handleSetVisible }) {
         debit_card: debitCard,
         total: total
       })
+
       handleSetVisible()
       toast.success('Dia de vendas Cadastrado')
     } catch (error) {
-      toast.error(error)
+      toast.error('Falha, dia de vendas ja foi registrado')
     }
   }
 

@@ -1,5 +1,7 @@
 import React, { useState, useContext } from 'react'
 // import { MdLocalShipping } from 'react-icons/md'
+import { toast } from 'react-toastify'
+import * as Yup from 'yup'
 
 import AuthContext from '../../contexts/AuthContext'
 import { Container, Form, Input, Button, Label, Content, Logo } from './styles'
@@ -12,6 +14,20 @@ const Sign = () => {
 
   async function handleLogin(event) {
     event.preventDefault()
+    const schema = Yup.object().shape({
+      email: Yup.string().email().required(),
+      password: Yup.string().required()
+    })
+
+    const dataLogin = {
+      email: email,
+      password: password
+    }
+
+    if (!(await schema.isValid(dataLogin))) {
+      toast.error('Dados inválidos')
+    }
+
     signIn(email, password)
   }
 

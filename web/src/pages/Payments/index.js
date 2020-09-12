@@ -109,7 +109,7 @@ function Payments() {
               <li key={payment.id}>
                 <Item deleted={payment.deleted}>
                   <HeaderItem>
-                    <span>Pagament:</span>
+                    <span>Pagamento:</span>
                     <ButtonItem
                       disabled={payment.deleted !== 0}
                       onClick={() => handleDelete(payment.id)}
