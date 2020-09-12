@@ -53,6 +53,8 @@ function Sales() {
         })
 
         setSales(response.data)
+        setInitial_date('')
+        setFinal_date('')
 
         if (response.data.length === 0) {
           toast.success('Não há dados durante este período')
@@ -77,6 +79,7 @@ function Sales() {
               type="date"
               name="initial_date"
               required
+              value={initial_date}
               onChange={e => setInitial_date(e.target.value)}
             />
             <label>Data final:</label>
@@ -84,6 +87,7 @@ function Sales() {
               type="date"
               name="final_date"
               required
+              value={final_date}
               onChange={e => setFinal_date(e.target.value)}
             />
 

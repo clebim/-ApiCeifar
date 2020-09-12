@@ -61,6 +61,9 @@ function Payments() {
       try {
         const response = await api.post('/payments', model)
         setPayments([response.data, ...payments])
+        setValue('')
+        setDescription('')
+        setDate('')
         toast.success('Pagamento Cadastrado')
       } catch (error) {
         toast.error(error)
@@ -82,6 +85,7 @@ function Payments() {
               placeholder="100.00"
               name="value_payment"
               required
+              value={value}
               onChange={e => setValue(e.target.value)}
             />
             <label>Descriçao do pagamento</label>
@@ -90,6 +94,7 @@ function Payments() {
               placeholder="Digite a descrição, Ex: Coca Cola"
               name="description_payment"
               required
+              value={description}
               onChange={e => setDescription(e.target.value)}
             />
             <label>Data do pagamento</label>
@@ -97,6 +102,7 @@ function Payments() {
               type="date"
               name="date_payment"
               required
+              value={date}
               onChange={e => setDate(e.target.value)}
             />
 

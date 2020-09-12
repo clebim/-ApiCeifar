@@ -70,6 +70,7 @@ function Reports() {
               type="date"
               name="initial_date"
               required
+              value={initial_date_form}
               onChange={e => setInitial_date_form(e.target.value)}
             />
             <label>Data final:</label>
@@ -77,6 +78,7 @@ function Reports() {
               type="date"
               name="final_date"
               required
+              value={final_date_form}
               onChange={e => setFinal_date_form(e.target.value)}
             />
 
