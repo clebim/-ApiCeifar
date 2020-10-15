@@ -55,6 +55,7 @@ class SalesOfTheDayController {
     const sales = await knex
       .select('*')
       .limit(30)
+      .orderBy('date', 'desc')
       .from<Sales>('sales_of_the_day');
 
     return res.json(sales);

@@ -1,5 +1,7 @@
+/* eslint-disable prettier/prettier */
 import { Request, Response } from 'express';
 import * as Yup from 'yup';
+import { formatISO, getDay, getMonth, parseISO } from 'date-fns';
 
 import knex from '../database/connection';
 
@@ -44,9 +46,11 @@ class PaymentsController {
   }
 
   async index(req: Request, res: Response) {
+
     const payments = await knex
       .select('id', 'value', 'description', 'pay_day', 'deleted')
       .limit(30)
+      .orderBy('pay_day', 'desc')
       .from<Payment>('payments');
 
     return res.json(payments);
