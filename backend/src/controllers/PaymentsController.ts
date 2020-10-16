@@ -1,7 +1,14 @@
-/* eslint-disable prettier/prettier */
+import {
+  formatISO,
+  parseISO,
+  format,
+  getMonth,
+  isLastDayOfMonth,
+  lastDayOfMonth,
+  startOfMonth,
+} from 'date-fns';
 import { Request, Response } from 'express';
 import * as Yup from 'yup';
-import { formatISO, getDay, getMonth, parseISO } from 'date-fns';
 
 import knex from '../database/connection';
 
@@ -30,7 +37,7 @@ class PaymentsController {
     const paymentId = await knex('payments').insert({
       value: value,
       description: description,
-      pay_day: pay_day,
+      pay_day: parseISO(pay_day),
       deleted: false,
     });
 
@@ -46,10 +53,17 @@ class PaymentsController {
   }
 
   async index(req: Request, res: Response) {
+    const startDayOfMonth = formatISO(startOfMonth(new Date()), {
+      representation: 'date',
+    });
+
+    const finalDayOfMonth = formatISO(lastDayOfMonth(new Date()), {
+      representation: 'date',
+    });
 
     const payments = await knex
       .select('id', 'value', 'description', 'pay_day', 'deleted')
-      .limit(30)
+      .whereBetween('pay_day', [startDayOfMonth, finalDayOfMonth])
       .orderBy('pay_day', 'desc')
       .from<Payment>('payments');
 
