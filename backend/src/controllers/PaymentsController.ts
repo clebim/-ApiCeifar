@@ -37,7 +37,7 @@ class PaymentsController {
     const paymentId = await knex('payments').insert({
       value: value,
       description: description,
-      pay_day: parseISO(pay_day),
+      pay_day: pay_day,
       deleted: false,
     });
 

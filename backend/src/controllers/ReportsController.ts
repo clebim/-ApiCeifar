@@ -79,15 +79,19 @@ class ReportsController {
 
     profit = sales_amount - month_payments;
 
-    const report: Report = {
-      initial_date: format(parseISO(initial_date), 'dd/MM/yyyy'),
-      final_date: format(parseISO(final_date), 'dd/MM/yyyy'),
-      cashSales: cashSales,
-      sales_credit_card: sales_credit_card,
-      sales_debit_card: sales_debit_card,
-      month_payments: month_payments,
-      sales_amount: sales_amount,
-      profit: profit,
+    const report = {
+      report: {
+        initial_date: format(parseISO(initial_date), 'dd/MM/yyyy'),
+        final_date: format(parseISO(final_date), 'dd/MM/yyyy'),
+        cashSales: cashSales,
+        sales_credit_card: sales_credit_card,
+        sales_debit_card: sales_debit_card,
+        month_payments: month_payments,
+        sales_amount: sales_amount,
+        profit: profit,
+      },
+      sales: sales,
+      payments: payments,
     };
 
     return res.json(report);
