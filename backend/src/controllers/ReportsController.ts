@@ -53,6 +53,7 @@ class ReportsController {
       .whereBetween('pay_day', [initial_date, final_date])
       .whereNot('deleted', 1)
       .select('id', 'value', 'description', 'pay_day')
+      .orderBy('pay_day')
       .from('payments');
 
     var cashSales = 0;

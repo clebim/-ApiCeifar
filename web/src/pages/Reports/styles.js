@@ -4,9 +4,8 @@ import { lighten } from 'polished'
 export const Container = styled.div`
   height: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
+  margin-top: 16px;
 `
 
 export const Content = styled.div`
@@ -15,7 +14,7 @@ export const Content = styled.div`
   background-color: #e5e6f0;
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 1100px;
   margin-bottom: 10px;
   border-radius: 4px;
 
@@ -27,6 +26,7 @@ export const Content = styled.div`
   }
 
   form {
+    display: flex;
     label {
       font-size: 16px;
       color: #513612;
@@ -38,12 +38,12 @@ export const Content = styled.div`
       border-radius: 4px;
       padding: 4px;
     }
+    justify-content: space-between;
   }
 `
 export const ButtonForm = styled.button`
   margin-left: 25px;
   border: 0;
-  justify-self: flex-end;
   border-radius: 4px;
   padding: 5px;
   font-size: 16px;
@@ -66,5 +66,63 @@ export const Data = styled.div`
     display: block;
     font-size: 16px;
     margin: 6px 0;
+  }
+`
+export const ListItems = styled.div`
+  background: none;
+  flex: 1;
+  width: 1100px;
+  align-self: center;
+  ul {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    list-style: none;
+  }
+  @media (max-width: 800px) {
+    ul {
+      grid-template-columns: 3fr;
+    }
+  }
+`
+
+export const Item = styled.div`
+  background: #e5e6f0;
+  padding: 10px;
+  border-radius: 4px;
+`
+
+export const HeaderItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  span {
+    font-size: 18px;
+    color: #513612;
+  }
+`
+export const ButtonItem = styled.button`
+  border: 0;
+  background: none;
+  cursor: ${props => (props.disabled === 0 ? 'pointer' : 'default')};
+`
+export const ItemContent = styled.div`
+  margin-top: 15px;
+  span {
+    font-size: 16px;
+    display: block;
+    color: #513612;
+  }
+`
+
+export const Title = styled.div`
+  background: #e5e6f0;
+  border-radius: 4px;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 20px;
+  h1 {
+    font-size: 24;
+    color: #513612;
   }
 `

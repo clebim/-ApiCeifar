@@ -3,8 +3,19 @@ import { FaSearch } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 import * as Yup from 'yup'
 import api from '../../services/api'
+import { format, parseISO } from 'date-fns'
 
-import { Container, Content, ButtonForm, Data } from './styles'
+import {
+  Container,
+  Content,
+  ButtonForm,
+  Data,
+  ListItems,
+  HeaderItem,
+  ItemContent,
+  Item,
+  Title
+} from './styles'
 import Header from '../../components/Header/index'
 
 function Reports() {
@@ -18,6 +29,8 @@ function Reports() {
   const [month_payments, setMonth_payments] = useState('')
   const [sales_amount, setSales_amount] = useState('')
   const [profit, setProfit] = useState('')
+  const [sales, setSales] = useState([])
+  const [payments, setPayments] = useState([])
 
   async function handleReport(event) {
     event.preventDefault()
@@ -38,16 +51,19 @@ function Reports() {
           initial_date: initial_date_form,
           final_date: final_date_form
         })
+        console.log(response.data.report)
         setInitial_date_form('')
         setFinal_date_form('')
-        setInitial_date(response.data.initial_date)
-        setFinal_date(response.data.final_date)
-        setCashSales(response.data.cashSales)
-        setSales_credit_card(response.data.sales_credit_card)
-        setSales_debit_card(response.data.sales_debit_card)
-        setMonth_payments(response.data.month_payments)
-        setSales_amount(response.data.sales_amount)
-        setProfit(response.data.profit)
+        setInitial_date(response.data.report.initial_date)
+        setFinal_date(response.data.report.final_date)
+        setCashSales(response.data.report.cashSales)
+        setSales_credit_card(response.data.report.sales_credit_card)
+        setSales_debit_card(response.data.report.sales_debit_card)
+        setMonth_payments(response.data.report.month_payments)
+        setSales_amount(response.data.report.sales_amount)
+        setProfit(response.data.report.profit)
+        setSales(response.data.sales)
+        setPayments(response.data.payments)
         toast.success('Relatório gerado com sucesso')
       } else {
         toast.error('Entrada de dados inválida')
@@ -65,27 +81,31 @@ function Reports() {
         <Content>
           <p>Relatórios da empresa:</p>
           <form onSubmit={handleReport}>
-            <label>Data inicial:</label>
-            <input
-              type="date"
-              name="initial_date"
-              required
-              value={initial_date_form}
-              onChange={e => setInitial_date_form(e.target.value)}
-            />
-            <label>Data final:</label>
-            <input
-              type="date"
-              name="final_date"
-              required
-              value={final_date_form}
-              onChange={e => setFinal_date_form(e.target.value)}
-            />
+            <div>
+              <label>Data inicial:</label>
+              <input
+                type="date"
+                name="initial_date"
+                required
+                value={initial_date_form}
+                onChange={e => setInitial_date_form(e.target.value)}
+              />
+              <label>Data final:</label>
+              <input
+                type="date"
+                name="final_date"
+                required
+                value={final_date_form}
+                onChange={e => setFinal_date_form(e.target.value)}
+              />
+            </div>
 
-            <ButtonForm type="submit">
-              <FaSearch size={16} color="#FFFFFF" />
-              Pesquisar
-            </ButtonForm>
+            <div>
+              <ButtonForm type="submit">
+                <FaSearch size={16} color="#FFFFFF" />
+                Pesquisar
+              </ButtonForm>
+            </div>
           </form>
 
           {initial_date !== '' && (
@@ -106,6 +126,60 @@ function Reports() {
             </Data>
           )}
         </Content>
+        <ListItems>
+          {sales.length !== 0 && (
+            <Title>
+              <h1>Vendas no período</h1>
+            </Title>
+          )}
+          <ul>
+            {sales.map(sale => (
+              <li key={sale.id}>
+                <Item>
+                  <HeaderItem>
+                    <span>Venda:</span>
+                  </HeaderItem>
+                  <ItemContent>
+                    <span>Dinheiro: R$ {sale.money}</span>
+                    <span>Cartão de crédito: R$ {sale.credit_card}</span>
+                    <span>Cartão de débito: R$ {sale.debit_card}</span>
+                    <span>Total: {sale.total}</span>
+                    <span>
+                      Data: {format(parseISO(sale.date), 'dd/MM/yyyy')}
+                    </span>
+                  </ItemContent>
+                </Item>
+              </li>
+            ))}
+          </ul>
+        </ListItems>
+
+        <ListItems>
+          {payments.length !== 0 && (
+            <Title>
+              <h1>Pagamentos no período</h1>
+            </Title>
+          )}
+          <ul>
+            {payments.map(payment => (
+              <li key={payment.id}>
+                <Item>
+                  <HeaderItem>
+                    <span>Pagamento:</span>
+                  </HeaderItem>
+                  <ItemContent>
+                    <span>Valor: R$ {payment.value}</span>
+                    <span>Descrição: R$ {payment.credit_card}</span>
+                    <span>
+                      Data do pagamento:
+                      {format(parseISO(payment.pay_day), ' dd/MM/yyyy')}
+                    </span>
+                  </ItemContent>
+                </Item>
+              </li>
+            ))}
+          </ul>
+        </ListItems>
       </Container>
     </>
   )

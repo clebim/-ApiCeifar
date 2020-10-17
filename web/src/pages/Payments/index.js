@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { FaTrash } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 import * as Yup from 'yup'
+import { format, parseISO } from 'date-fns'
 
 import api from '../../services/api'
 import {
@@ -126,7 +127,10 @@ function Payments() {
                   <ItemContent>
                     <span>Valor: R$ {payment.value}</span>
                     <span>Descrição de pagamento: {payment.description}</span>
-                    <span>Data do pagamento: {payment.pay_day}</span>
+                    <span>
+                      Data do pagamento:{' '}
+                      {format(parseISO(payment.pay_day), 'dd/MM/yyyy')}
+                    </span>
                   </ItemContent>
                 </Item>
               </li>

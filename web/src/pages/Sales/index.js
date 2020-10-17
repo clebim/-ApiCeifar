@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { FaSearch } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 import * as Yup from 'yup'
+import { format, parseISO } from 'date-fns'
 
 import api from '../../services/api'
 import {
@@ -111,7 +112,9 @@ function Sales() {
                     <span>Cartão de crédito: {sale.credit_card}</span>
                     <span>Cartão de débito: {sale.debit_card}</span>
                     <span>total: {sale.total}</span>
-                    <span>Data: {sale.date}</span>
+                    <span>
+                      Data: {format(parseISO(sale.date), 'dd/MM/yyyy')}
+                    </span>
                   </ItemContent>
                 </Item>
               </li>
